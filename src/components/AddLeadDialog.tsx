@@ -46,10 +46,12 @@ const formSchema = z.object({
   notes: z.string().optional(),
 });
 
+type FormValues = z.infer<typeof formSchema>;
+
 const AddLeadDialog: React.FC<AddLeadDialogProps> = ({ onAddLead }) => {
   const [open, setOpen] = React.useState(false);
   
-  const form = useForm<z.infer<typeof formSchema>>({
+  const form = useForm<FormValues>({
     resolver: zodResolver(formSchema),
     defaultValues: {
       name: "",
@@ -61,14 +63,14 @@ const AddLeadDialog: React.FC<AddLeadDialogProps> = ({ onAddLead }) => {
     },
   });
 
-  const onSubmit = (values: z.infer<typeof formSchema>) => {
+  const onSubmit = (values: FormValues) => {
     onAddLead({
       name: values.name,
       company: values.company,
       email: values.email,
       phone: values.phone,
       notes: values.notes,
-      value: values.value, // This is now correctly typed as number | undefined
+      value: values.value, // This is now correctly typed as number | undefined due to the transform
     });
     form.reset();
     setOpen(false);
