@@ -1,10 +1,9 @@
-
 import React, { useState } from "react";
 import AddLeadDialog from "./AddLeadDialog";
 import LeadColumn from "./LeadColumn";
-import { Lead, LeadStatus } from "@/types/Lead";
 import { v4 as uuidv4 } from "uuid";
 import { toast } from "sonner";
+import { Lead, LeadStatus } from "@/types/Lead";
 
 const COLUMN_CONFIG = [
   { title: "New Leads", status: "new" as LeadStatus },
@@ -61,6 +60,29 @@ const LeadTracker: React.FC = () => {
   const [draggedLead, setDraggedLead] = useState<Lead | null>(null);
   const [dragOverColumn, setDragOverColumn] = useState<LeadStatus | null>(null);
 
+  const sendLeadWebhook = async (name: string, phone?: string) => {
+    try {
+      const webhookUrl = "https://hook.eu2.make.com/btgplb8oam9zooqquo1ysuv2cvewm6b2";
+      
+      await fetch(webhookUrl, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          name,
+          phone: phone || "N/A",
+          timestamp: new Date().toISOString(),
+        }),
+        mode: "no-cors",
+      });
+      
+      console.log("Webhook sent successfully for lead:", name);
+    } catch (error) {
+      console.error("Error sending webhook:", error);
+    }
+  };
+
   const handleAddLead = (
     newLead: Omit<Lead, "id" | "status" | "createdAt">
   ) => {
@@ -73,6 +95,8 @@ const LeadTracker: React.FC = () => {
     
     setLeads((prev) => [lead, ...prev]);
     toast.success("New lead added successfully!");
+    
+    sendLeadWebhook(lead.name, lead.phone);
   };
 
   const handleDragStart = (lead: Lead) => {
