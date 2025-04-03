@@ -1,3 +1,4 @@
+
 import React, { useState } from "react";
 import AddLeadDialog from "./AddLeadDialog";
 import LeadColumn from "./LeadColumn";
@@ -64,6 +65,7 @@ const LeadTracker: React.FC = () => {
     try {
       const webhookUrl = "https://hook.eu2.make.com/btgplb8oam9zooqquo1ysuv2cvewm6b2";
       
+      // Send name and phone as separate JSON parameters
       await fetch(webhookUrl, {
         method: "POST",
         headers: {
@@ -96,6 +98,7 @@ const LeadTracker: React.FC = () => {
     setLeads((prev) => [lead, ...prev]);
     toast.success("New lead added successfully!");
     
+    // Send the lead data to the webhook
     sendLeadWebhook(lead.name, lead.phone);
   };
 

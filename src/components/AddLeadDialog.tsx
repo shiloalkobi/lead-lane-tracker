@@ -64,14 +64,14 @@ const AddLeadDialog: React.FC<AddLeadDialogProps> = ({ onAddLead }) => {
   });
 
   const onSubmit = (values: FormValues) => {
-    // Use the values properly typed from the form submission
     onAddLead({
       name: values.name,
       company: values.company,
       email: values.email,
       phone: values.phone,
       notes: values.notes,
-      value: values.value, // This is correctly typed as number | undefined due to the Zod transform
+      // The value is now properly transformed to number | undefined by Zod
+      value: values.value,
     });
     form.reset();
     setOpen(false);
