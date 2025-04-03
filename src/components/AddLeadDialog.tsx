@@ -35,13 +35,14 @@ const formSchema = z.object({
   company: z.string().min(1, "Company is required"),
   email: z.string().email("Invalid email address"),
   phone: z.string().optional(),
-  value: z.union([
-    z.number().positive("Value must be a positive number"),
-    z.string().transform((val) => {
+  value: z
+    .string()
+    .optional()
+    .transform((val) => {
+      if (!val || val === "") return undefined;
       const parsed = parseFloat(val);
       return isNaN(parsed) ? undefined : parsed;
     }),
-  ]).optional(),
   notes: z.string().optional(),
 });
 
@@ -67,7 +68,7 @@ const AddLeadDialog: React.FC<AddLeadDialogProps> = ({ onAddLead }) => {
       email: values.email,
       phone: values.phone,
       notes: values.notes,
-      value: typeof values.value === "string" ? parseFloat(values.value) : values.value,
+      value: values.value,
     });
     form.reset();
     setOpen(false);
