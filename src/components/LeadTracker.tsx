@@ -64,6 +64,12 @@ const LeadTracker: React.FC = () => {
   const sendLeadWebhook = async (name: string, phone?: string) => {
     try {
       const webhookUrl = "https://hook.eu2.make.com/btgplb8oam9zooqquo1ysuv2cvewm6b2";
+
+       // שליחה עם שני פרמטרים בלבד: name ו-phone
+    const leadData = {
+      name,          // פרמטר name
+      phone: phone || "0500000000",  // פרמטר phone
+    };
       
       // Structure data with name and phone inside a "value" property
       await fetch(webhookUrl, {
