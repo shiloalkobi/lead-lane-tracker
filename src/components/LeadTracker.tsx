@@ -65,14 +65,14 @@ const LeadTracker: React.FC = () => {
     try {
       const webhookUrl = "https://hook.eu2.make.com/btgplb8oam9zooqquo1ysuv2cvewm6b2";
       
-      // Send name and phone as separate parameters in the JSON payload
+      // Properly format data as individual parameters at the root level
       await fetch(webhookUrl, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
-          name: name,
+          name,
           phone: phone || "0500000000"  // Default phone number if not provided
         }),
         mode: "no-cors",

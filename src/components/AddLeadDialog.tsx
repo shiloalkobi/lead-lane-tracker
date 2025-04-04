@@ -69,7 +69,7 @@ const AddLeadDialog: React.FC<AddLeadDialogProps> = ({ onAddLead }) => {
       email: values.email,
       phone: values.phone,
       notes: values.notes,
-      value: values.value,  // This is now properly transformed to number | undefined
+      value: values.value, // Now correctly typed as number | undefined thanks to the transform
     });
     form.reset();
     setOpen(false);
