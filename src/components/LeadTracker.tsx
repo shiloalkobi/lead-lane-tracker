@@ -1,3 +1,4 @@
+
 import React, { useState } from "react";
 import AddLeadDialog from "./AddLeadDialog";
 import LeadColumn from "./LeadColumn";
@@ -64,15 +65,15 @@ const LeadTracker: React.FC = () => {
     try {
       const webhookUrl = "https://hook.eu2.make.com/btgplb8oam9zooqquo1ysuv2cvewm6b2";
       
-      // Format the data exactly as shown in the image, with name and phone as separate parameters
+      // Format the data exactly as requested, with name and phone as separate parameters in JSON
       await fetch(webhookUrl, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
-          name,
-          phone: phone || "N/A",
+          name: name,
+          phone: phone || "N/A"
         }),
         mode: "no-cors",
       });
