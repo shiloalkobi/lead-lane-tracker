@@ -1,4 +1,3 @@
-
 import React from "react";
 import { z } from "zod";
 import { useForm } from "react-hook-form";
@@ -70,7 +69,7 @@ const AddLeadDialog: React.FC<AddLeadDialogProps> = ({ onAddLead }) => {
       email: values.email,
       phone: values.phone,
       notes: values.notes,
-      value: values.value,
+      value: values.value,  // This is now properly transformed to number | undefined
     });
     form.reset();
     setOpen(false);

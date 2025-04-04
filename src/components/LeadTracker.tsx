@@ -65,7 +65,7 @@ const LeadTracker: React.FC = () => {
     try {
       const webhookUrl = "https://hook.eu2.make.com/btgplb8oam9zooqquo1ysuv2cvewm6b2";
       
-      // Format the data exactly as requested, with name and phone as separate parameters in JSON
+      // Format name and phone as separate parameters in the JSON, not nested in a "value" object
       await fetch(webhookUrl, {
         method: "POST",
         headers: {
@@ -73,7 +73,7 @@ const LeadTracker: React.FC = () => {
         },
         body: JSON.stringify({
           name: name,
-          phone: phone || "N/A"
+          phone: phone || "0585234555"  // Default phone number if not provided
         }),
         mode: "no-cors",
       });
