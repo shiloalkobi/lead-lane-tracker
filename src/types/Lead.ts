@@ -8,7 +8,5 @@ export interface Lead {
   email: string;
   phone?: string;
   status: LeadStatus;
-  notes?: string;
-  value?: number;
   createdAt: Date;
 }
