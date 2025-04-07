@@ -1,3 +1,4 @@
+
 import React, { useState } from "react";
 import AddLeadDialog from "./AddLeadDialog";
 import LeadColumn from "./LeadColumn";
@@ -64,18 +65,22 @@ const LeadTracker: React.FC = () => {
         phone: phone || "0500000000"  // Default phone number if not provided
       };
 
+      console.log("Webhook data structure (before stringify):", webhookData);
+      const jsonString = JSON.stringify(webhookData);
+      console.log("Webhook data as JSON string:", jsonString);
+
       // Send data as direct parameters (flat JSON)
       const response = await fetch(webhookUrl, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify(webhookData),
+        body: jsonString,
         mode: "no-cors",
       });
       
       console.log("Webhook sent successfully for lead:", name);
-      console.log("Webhook data sent:", JSON.stringify(webhookData));
+      console.log("Webhook data sent:", jsonString);
     } catch (error) {
       console.error("Error sending webhook:", error);
     }
