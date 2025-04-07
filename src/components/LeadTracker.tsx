@@ -1,4 +1,3 @@
-
 import React, { useState } from "react";
 import AddLeadDialog from "./AddLeadDialog";
 import LeadColumn from "./LeadColumn";
@@ -65,23 +64,15 @@ const LeadTracker: React.FC = () => {
     try {
       const webhookUrl = "https://hook.eu2.make.com/btgplb8oam9zooqquo1ysuv2cvewm6b2";
 
-       // שליחה עם שני פרמטרים בלבד: name ו-phone
-    const leadData = {
-      name,          // פרמטר name
-      phone: phone || "0500000000",  // פרמטר phone
-    };
-      
-      // Structure data with name and phone inside a "value" property
+      // Send data as direct parameters (flat JSON)
       await fetch(webhookUrl, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
-          value: {
-            name,
-            phone: phone || "0500000000"  // Default phone number if not provided
-          }
+          name,
+          phone: phone || "0500000000"  // Default phone number if not provided
         }),
         mode: "no-cors",
       });
