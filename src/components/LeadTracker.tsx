@@ -1,4 +1,3 @@
-
 import React, { useState } from "react";
 import AddLeadDialog from "./AddLeadDialog";
 import LeadColumn from "./LeadColumn";
@@ -21,8 +20,6 @@ const initialLeads: Lead[] = [
     email: "sarah@acme.com",
     phone: "(555) 123-4567",
     status: "new",
-    value: 15000,
-    notes: "Interested in our premium plan",
     createdAt: new Date(),
   },
   {
@@ -31,7 +28,6 @@ const initialLeads: Lead[] = [
     company: "Tech Solutions",
     email: "michael@techsolutions.com",
     status: "new",
-    value: 8500,
     createdAt: new Date(),
   },
   {
@@ -41,8 +37,6 @@ const initialLeads: Lead[] = [
     email: "jessica@global.com",
     phone: "(555) 987-6543",
     status: "in-progress",
-    value: 25000,
-    notes: "Follow up next week",
     createdAt: new Date(),
   },
   {
@@ -51,7 +45,6 @@ const initialLeads: Lead[] = [
     company: "Local Business",
     email: "david@local.com",
     status: "closed",
-    value: 12000,
     createdAt: new Date(),
   },
 ];

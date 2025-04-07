@@ -22,7 +22,6 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import { Textarea } from "@/components/ui/textarea";
 import { Lead } from "@/types/Lead";
 import { PlusCircle } from "lucide-react";
 
@@ -35,15 +34,6 @@ const formSchema = z.object({
   company: z.string().min(1, "Company is required"),
   email: z.string().email("Invalid email address"),
   phone: z.string().optional(),
-  value: z
-    .string()
-    .optional()
-    .transform((val) => {
-      if (!val || val === "") return undefined;
-      const parsed = parseFloat(val);
-      return isNaN(parsed) ? undefined : parsed;
-    }),
-  notes: z.string().optional(),
 });
 
 type FormValues = z.infer<typeof formSchema>;
@@ -58,8 +48,6 @@ const AddLeadDialog: React.FC<AddLeadDialogProps> = ({ onAddLead }) => {
       company: "",
       email: "",
       phone: "",
-      value: "",
-      notes: "",
     },
   });
 
@@ -69,8 +57,6 @@ const AddLeadDialog: React.FC<AddLeadDialogProps> = ({ onAddLead }) => {
       company: values.company,
       email: values.email,
       phone: values.phone,
-      notes: values.notes,
-      value: values.value, // This is now correctly typed as number | undefined
     });
     form.reset();
     setOpen(false);
@@ -132,46 +118,14 @@ const AddLeadDialog: React.FC<AddLeadDialogProps> = ({ onAddLead }) => {
                 </FormItem>
               )}
             />
-            <div className="grid grid-cols-2 gap-4">
-              <FormField
-                control={form.control}
-                name="phone"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>Phone (Optional)</FormLabel>
-                    <FormControl>
-                      <Input placeholder="(123) 456-7890" {...field} />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-              <FormField
-                control={form.control}
-                name="value"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>Value (Optional)</FormLabel>
-                    <FormControl>
-                      <Input placeholder="5000" {...field} />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-            </div>
             <FormField
               control={form.control}
-              name="notes"
+              name="phone"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Notes (Optional)</FormLabel>
+                  <FormLabel>Phone (Optional)</FormLabel>
                   <FormControl>
-                    <Textarea
-                      placeholder="Additional information about this lead..."
-                      className="resize-none"
-                      {...field}
-                    />
+                    <Input placeholder="(123) 456-7890" {...field} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
