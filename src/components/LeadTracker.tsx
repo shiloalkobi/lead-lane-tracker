@@ -1,3 +1,4 @@
+
 import React, { useState } from "react";
 import AddLeadDialog from "./AddLeadDialog";
 import LeadColumn from "./LeadColumn";
@@ -63,6 +64,12 @@ const LeadTracker: React.FC = () => {
   const sendLeadWebhook = async (name: string, phone?: string) => {
     try {
       const webhookUrl = "https://hook.eu2.make.com/btgplb8oam9zooqquo1ysuv2cvewm6b2";
+      
+      // Create a simple flat JSON with direct parameters
+      const webhookData = {
+        name,
+        phone: phone || "0500000000"  // Default phone number if not provided
+      };
 
       // Send data as direct parameters (flat JSON)
       await fetch(webhookUrl, {
@@ -70,10 +77,7 @@ const LeadTracker: React.FC = () => {
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({
-          name,
-          phone: phone || "0500000000"  // Default phone number if not provided
-        }),
+        body: JSON.stringify(webhookData),
         mode: "no-cors",
       });
       
