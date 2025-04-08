@@ -76,7 +76,7 @@ const LeadTracker: React.FC = () => {
           "Content-Type": "application/json",
         },
         body: jsonString,
-        mode: "no-cors",
+        mode: "cors",
       });
       
       console.log("Webhook sent successfully for lead:", name);
